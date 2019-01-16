@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <form id="uface">
+      <input type="file" name="files" id="upload" />
+      <button type="button" onClick="uploadImg()">submit</button>
+    </form>
+
+    <div class="outer">
+      <img id="jz" src="/images/jz.jpg" style="display: none;" />
+      <img id="target" src="" style="display: none;" />
+      <canvas id="canvas" width="713" height="578"></canvas>
+    </div>
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/js/index.js"></script>
+  </body>
+</html>
