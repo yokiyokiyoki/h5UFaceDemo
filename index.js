@@ -1,6 +1,6 @@
 var express = require("express");
 var app = express();
-
+var fs = require("fs");
 var AipFaceClient = require("baidu-aip-sdk").face;
 
 // 设置APPID/AK/SK
@@ -15,6 +15,14 @@ app.get("/", function(req, res) {
   res.send("Hello World!");
 });
 
-app.listen(3000, function() {
-  console.log("Example app listening on port 3000!");
+// app.listen(3000, function() {
+//   console.log("Example app listening on port 3000!");
+// });
+
+var image = fs.readFileSync("public/img/p.jpg");
+
+var base64Img = new Buffer(image).toString("base64");
+
+client.detect(base64Img, "BASE64").then(function(result) {
+  console.log(JSON.stringify(result), base64Img);
 });
