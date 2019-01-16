@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title>face测试</title>
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <h1>测试一下</h1>
+    <p>上传face</p>
     <form id="uface">
       <input type="file" name="files" id="upload" />
       <button type="button" onClick="uploadImg()">submit</button>
     </form>
 
     <div class="outer">
-      <img id="jz" src="/images/jz.jpg" style="display: none;" />
+      <img id="jz" src="/images/jz.png" style="display: none;" />
       <img id="target" src="" style="display: none;" />
       <canvas id="canvas" width="713" height="578"></canvas>
     </div>

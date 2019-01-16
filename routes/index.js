@@ -48,7 +48,7 @@ router.post("/file/uploading", function(req, res, next) {
       var image = fs.readFileSync(uploadedPath);
       var base64Img = new Buffer(image).toString("base64");
 
-      client.detect(base64Img).then(function(result) {
+      client.detect(base64Img, "BASE64").then(function(result) {
         Object.assign(result, {
           imgSrc: uploadedPath.replace("public", "").replace(/\\/g, "/")
         });

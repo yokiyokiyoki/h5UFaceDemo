@@ -9,7 +9,8 @@ function uploadImg() {
     contentType: false,
     success: function(res) {
       var json = JSON.parse(res);
-      if (json.result && json.result.length > 0) {
+      debugger;
+      if (json.result && json.result.face_num) {
         //从后端获取到人脸检测到结果后，调用createFace函数，进行图片合成
         createFace(json);
       } else {
@@ -20,11 +21,12 @@ function uploadImg() {
 }
 
 function createFace(data) {
+  debugger;
   var jzimg = $("#jz")[0];
   var img = $("#target")[0];
   var canvas = $("#canvas")[0];
   var ctx = canvas.getContext("2d");
-  var location = data.result[0];
+  var location = data.result.face_list[0];
   var sx = location.location.left,
     sy = location.location.top,
     swidth = location.location.width,
