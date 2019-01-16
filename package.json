@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "baidu-aip-sdk": "^2.3.9",
     "express": "^4.16.4"
   }
 }
