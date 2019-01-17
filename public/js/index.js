@@ -9,7 +9,6 @@ function uploadImg() {
     contentType: false,
     success: function(res) {
       var json = JSON.parse(res);
-      debugger;
       if (json.result && json.result.face_num) {
         //从后端获取到人脸检测到结果后，调用createFace函数，进行图片合成
         createFace(json);
@@ -21,7 +20,6 @@ function uploadImg() {
 }
 
 function createFace(data) {
-  debugger;
   var jzimg = $("#jz")[0];
   var img = $("#target")[0];
   var canvas = $("#canvas")[0];
