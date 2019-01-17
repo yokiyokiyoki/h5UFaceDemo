@@ -1,7 +1,7 @@
 var express = require("express");
 const axios = require("axios");
 var router = express.Router();
-
+const qs = require("qs");
 /* GET home page. */
 router.get("/", function(req, res, next) {
   res.render("index", { title: "Express" });
@@ -63,39 +63,81 @@ router.post("/file/uploading", function(req, res, next) {
   });
 });
 
-//face++本地测试
-var imageFace = fs.readFileSync("./public/images/face/1.jpg");
-var base64ImgFace = new Buffer(imageFace).toString("base64");
-
-var imageTpl = fs.readFileSync("./public/images/face/timg.jpg");
-var base64ImgTpl = new Buffer(imageTpl).toString("base64");
-
-const qs = require("qs");
-axios({
-  method: "post",
-  url: "https://api-cn.faceplusplus.com/imagepp/v1/mergeface",
-  data: qs.stringify({
-    api_key: FAPI_KEY,
-    api_secret: FSECRET_KEY,
-    template_base64: base64ImgTpl,
-    merge_base64: base64ImgFace
-  })
-})
-  .then(data => {
-    console.log(data);
-    var imgData = data.data.result;
-    //过滤data:URL
-    var base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
-    var dataBuffer = new Buffer(base64Data, "base64");
-    fs.writeFile("image.png", dataBuffer, function(err) {
-      if (err) {
-        res.send(err);
-      } else {
-        res.send("保存成功！");
-      }
-    });
-  })
-  .catch(e => {
-    console.log(e.response.data);
+router.post("/file/merge/uploading", function(req, res, next) {
+  var form = new multiparty.Form({
+    uploadDir: "./public/files/"
   });
+
+  form.parse(req, function(err, fields, files) {
+    var filesTmp = JSON.stringify(files, null, 2);
+
+    if (err) {
+      console.log("parse error: " + err);
+    } else {
+      console.log("parse files: " + filesTmp);
+
+      var inputFile = files.file[0];
+      var uploadedPath = inputFile.path;
+
+      var imageFace = fs.readFileSync(uploadedPath);
+      var base64ImgFace = new Buffer(imageFace).toString("base64");
+
+      var imageTpl = fs.readFileSync("./public/images/face/timg.jpg");
+      var base64ImgTpl = new Buffer(imageTpl).toString("base64");
+
+      axios({
+        method: "post",
+        url: "https://api-cn.faceplusplus.com/imagepp/v1/mergeface",
+        data: qs.stringify({
+          api_key: FAPI_KEY,
+          api_secret: FSECRET_KEY,
+          template_base64: base64ImgTpl,
+          merge_base64: base64ImgFace
+        })
+      })
+        .then(data => {
+          console.log(data);
+          res.send(data.data);
+        })
+        .catch(e => {
+          console.log(e.response.data);
+        });
+    }
+  });
+});
+
+//face++本地测试
+// var imageFace = fs.readFileSync("./public/images/face/1.jpg");
+// var base64ImgFace = new Buffer(imageFace).toString("base64");
+
+// var imageTpl = fs.readFileSync("./public/images/face/timg.jpg");
+// var base64ImgTpl = new Buffer(imageTpl).toString("base64");
+
+// axios({
+//   method: "post",
+//   url: "https://api-cn.faceplusplus.com/imagepp/v1/mergeface",
+//   data: qs.stringify({
+//     api_key: FAPI_KEY,
+//     api_secret: FSECRET_KEY,
+//     template_base64: base64ImgTpl,
+//     merge_base64: base64ImgFace
+//   })
+// })
+//   .then(data => {
+//     console.log(data);
+//     var imgData = data.data.result;
+//     //过滤data:URL
+//     var base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
+//     var dataBuffer = new Buffer(base64Data, "base64");
+//     fs.writeFile("image.png", dataBuffer, function(err) {
+//       if (err) {
+//         console.log('错误')
+//       } else {
+//         console.log('成功')
+//       }
+//     });
+//   })
+//   .catch(e => {
+//     console.log(e.response.data);
+//   });
 https: module.exports = router;
