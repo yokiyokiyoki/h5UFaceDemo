@@ -4,4 +4,5 @@
 
 # 使用
 
-- yarn&&yarn start
+- yarn&&yarn start 监听 3000 端口
+- 打开浏览器输入：localhost：3000
