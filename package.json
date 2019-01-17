@@ -9,6 +9,7 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "baidu-aip-sdk": "^2.3.9",
     "body-parser": "~1.17.1",
     "cookie-parser": "~1.4.3",
