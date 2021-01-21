@@ -187,11 +187,11 @@ router.post("/file/merge/uploading", function(req, res, next) {
 
         /* 上传的文件 */
       var imageFace = fs.readFileSync(uploadedPath);
-      var base64ImgFace = new Buffer(imageFace).toString("base64");
+      var base64ImgFace = Buffer.from(imageFace).toString("base64");
         /* 读取模板图，编码成base64 */
         //TODO:以后自己前端上传模板图
       var imageTpl = fs.readFileSync("./public/images/face/timg.jpg");
-      var base64ImgTpl = new Buffer(imageTpl).toString("base64");
+      var base64ImgTpl = Buffer.from(imageTpl).toString("base64");
 
         /* 请求face++接口 */
       axios({
